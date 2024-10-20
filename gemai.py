@@ -3219,7 +3219,7 @@ def formatar_tabela():
             "Usuário da Ação": "Matheus Vinicius Morgado"
         },
         {
-            "Data": "18/10/2024",
+            "Data": "18/10/2024",                
             "Hora": "01:04:39",
             "Filial": "VDA",
             "Motorista": "Nivaldo Garcia Duarte",
@@ -3600,7 +3600,7 @@ def consultar_gemini_api(pergunta, api_key):
         "A tabela disponibilizada acima é sobre as ocorrência de velocidade"
         "Essa AI tem que analisar os dados da tabela no json acima "
         "A variavel tabela_velocidade contém dados de infrações de velocidade. "
-        "Logistica Florestal da Bracell inovando e utilizando IA para ajudar nas analises de infrções de velocidade!!"
+        "A Logistica Florestal da Bracell inovando e utilizando IA para ajudar nas analises de infrções de velocidade!!"
         "Este painel da logística foi criado por Sócrates, com a ajuda de Alex na compilação dos dados e Jader nas ideias para melhorar a interface. "
         
         "Se precisar, os gestores podem baixar dados em formato Excel para facilitar o trabalho. "
