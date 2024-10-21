@@ -3566,6 +3566,10 @@ def formatar_tabela():
         # Adicione mais registros se necessário...
     ]
 
+
+
+# Função para formatar a tabela de infrações
+def formatar_tabela(tabela_velocidade):
     tabela_infracao = ""
     for registro in tabela_velocidade:
         tabela_infracao += (
@@ -3583,36 +3587,31 @@ def formatar_tabela():
             f"Data da Ação: {registro['Data da Ação']}\n"
             f"Usuário da Ação: {registro['Usuário da Ação']}\n\n"
         )
-    
     return tabela_infracao
 
-# Função para fazer a requisição à API do Gemini com o contexto sempre presente
-def consultar_gemini_api(pergunta, api_key):
+# Função para fazer a requisição à API do Gemini
+def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
     url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
     
     headers = {
         'Content-Type': 'application/json',
-       
     }
 
     # Contexto que será passado em todas as interações
     contexto = (
-        "Foram 236 ocorrencias do dia 12/10/2024 a 18/10/2024"
-        "Infrações BTF 01: 5; BTF 02: 45; BTF 03: 13; BTF 04: 8; BTF 05: 17; BTF 06: 22; BTF 07: 5; BTF 08: 7; CARGO POLO: 15; NEPOMUCENO: 17; OLSEN: 34;" 
-        "A tabela disponibilizada acima é sobre as ocorrência de velocidade"
-        "Essa AI tem que analisar os dados da tabela no json acima "
-        "A variavel tabela_velocidade contém dados de infrações de velocidade. "
-        "A Logistica Florestal da Bracell inovando e utilizando IA para ajudar nas analises de infrções de velocidade!!"
+        "Foram 236 ocorrências do dia 12/10/2024 a 18/10/2024. "
+        "Infrações BTF 01: 5; BTF 02: 45; BTF 03: 13; BTF 04: 8; BTF 05: 17; BTF 06: 22; BTF 07: 5; BTF 08: 7; CARGO POLO: 15; NEPOMUCENO: 17; OLSEN: 34; "
+        "A tabela disponibilizada acima é sobre as ocorrências de velocidade. "
+        "A variável tabela_velocidade contém dados de infrações de velocidade. "
+        "A Logística Florestal da Bracell inovando e utilizando IA para ajudar nas análises de infrações de velocidade!! "
         "Este painel da logística foi criado por Sócrates, com a ajuda de Alex na compilação dos dados e Jader nas ideias para melhorar a interface. "
-        
         "Se precisar, os gestores podem baixar dados em formato Excel para facilitar o trabalho. "
         "Responda todas as perguntas considerando o contexto das infrações de velocidade. "
-        "Tecnologias utilizadas: HTML, CSS, JS, Linguagem R e PYTHON. "
-        
+        "Tecnologias utilizadas: HTML, CSS, JS, Linguagem R e PYTHON."
     )
     
     # Formatar a tabela e incluir no contexto
-    tabela_infracao = formatar_tabela()
+    tabela_infracao = formatar_tabela(tabela_velocidade)
     
     # Combina o contexto, a tabela e a pergunta do usuário
     pergunta_com_contexto = f"{contexto}\n\nTabela de Dados:\n{tabela_infracao}\n\nPergunta: {pergunta}"
@@ -3649,21 +3648,48 @@ def formatar_resposta(resposta):
     except (KeyError, IndexError):
         return "Não foi possível processar a resposta da API."
 
-# Configurando a interface do Streamlit
+# Função principal para interface do Streamlit
 def main():
-    st.title("Interação com a IA")
+    st.title("Painel de Infrações de Velocidade - Bracell")
+    
+    # Exibe uma saudação inicial
+    st.write("Bem-vindo! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
 
-    # Gerando saudação cordial
-    saudacao = gerar_saudacao()
-    st.write(f"{saudacao}! Sou uma Inteligência Artificial desenvolvida para ajudar a analisar os dados de infrações de velocidades!!")
+    # Entrada para o usuário fornecer a chave da API
+    api_key = st.text_input("Digite sua API Key da Gemini", type="password")
+
+    # Tabela de exemplo (você pode substituí-la pelos dados reais)
+    tabela_velocidade = [
+        {
+            "Data": "18/10/2024",                
+            "Hora": "01:04:39",
+            "Filial": "VDA",
+            "Motorista": "Nivaldo Garcia Duarte",
+            "Veículo": "SAL3A97 - SAL3A97",
+            "Hodômetro (km)": 2698679,
+            "Duração (hh:mm:ss)": "00:00:16",
+            "Velocidade (Km/h)": 34,
+            "Limite (Km/h)": 20,
+            "Cerca Embarcada": "BRC_ENTRADA LINHA 2",
+            "Ação": "Valido",
+            "Data da Ação": "18/10/2024 01:28:45",
+            "Usuário da Ação": "Leandro Santos Da Costa"
+        }
+        # Adicione mais dados aqui
+    ]
+
+    # Exibir a tabela de infrações
+    st.subheader("Tabela de Infrações de Velocidade")
+    tabela_infracao = formatar_tabela(tabela_velocidade)
+    st.text(tabela_infracao)
 
     # Entrada de texto para a pergunta do usuário
-    pergunta = st.text_input("Digite sua pergunta:")
+    pergunta = st.text_input("Digite sua pergunta sobre as infrações de velocidade:")
 
+    # Botão para consultar a API
     if st.button("Consultar Inteligência Artificial"):
-        # Consultando a API
-        if pergunta:
-            resposta = consultar_gemini_api(pergunta, api_key)
+        if pergunta and api_key:
+            resposta = consultar_gemini_api(pergunta, api_key, tabela_velocidade)
             
             # Exibindo a resposta da API
             if 'erro' in resposta:
@@ -3673,7 +3699,7 @@ def main():
                 st.write("Resposta da IA:")
                 st.write(resposta_formatada)
         else:
-            st.write("Por favor, insira uma pergunta.")
+            st.warning("Por favor, insira a pergunta e a API Key.")
 
 if __name__ == '__main__':
     main()
