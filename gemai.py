@@ -3597,6 +3597,7 @@ def consultar_gemini_api(pergunta, api_key):
 
     # Contexto que será passado em todas as interações
     contexto = (
+        "Foram 236 ocorrencias do dia 12/10/2024 a 18/10/2024"
         "A tabela disponibilizada acima é sobre as ocorrência de velocidade"
         "Essa AI tem que analisar os dados da tabela no json acima "
         "A variavel tabela_velocidade contém dados de infrações de velocidade. "
