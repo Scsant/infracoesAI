@@ -16,9 +16,9 @@ api_key = os.getenv("API_KEY")
 def gerar_saudacao():
     current_hour = datetime.now().hour
     if current_hour < 12:
-        return "Bom dia"
+        return "Olá"
     else:
-        return "Boa tarde"
+        return "Olá"
 
 # Função para formatar a tabela de dados em formato de texto
 def formatar_tabela():
