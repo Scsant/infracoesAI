@@ -2019,29 +2019,6 @@ def main():
     # Exibe uma saudação inicial
     st.write("Bem-vindo! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
 
-    # Entrada para o usuário fornecer a chave da API
-    api_key = st.text_input("Digite sua API Key da Gemini", type="password")
-
-    # Tabela de exemplo (você pode substituí-la pelos dados reais)
-    tabela_velocidade = [
-        {
-            "Data": "18/10/2024",                
-            "Hora": "01:04:39",
-            "Filial": "VDA",
-            "Motorista": "Nivaldo Garcia Duarte",
-            "Veículo": "SAL3A97 - SAL3A97",
-            "Hodômetro (km)": 2698679,
-            "Duração (hh:mm:ss)": "00:00:16",
-            "Velocidade (Km/h)": 34,
-            "Limite (Km/h)": 20,
-            "Cerca Embarcada": "BRC_ENTRADA LINHA 2",
-            "Ação": "Valido",
-            "Data da Ação": "18/10/2024 01:28:45",
-            "Usuário da Ação": "Leandro Santos Da Costa"
-        }
-        # Adicione mais dados aqui
-    ]
-
     # Exibir a tabela de infrações
     st.subheader("Tabela de Infrações de Velocidade")
     tabela_infracao = formatar_tabela(tabela_velocidade)
