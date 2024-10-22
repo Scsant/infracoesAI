@@ -1953,6 +1953,7 @@ def formatar_tabela(tabela_velocidade):
         )
     return tabela_infracao
 
+
 # Função para fazer a requisição à API do Gemini
 def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
     url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
@@ -1963,9 +1964,9 @@ def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
 
     # Contexto que será passado em todas as interações
     contexto = (
-        "Local: https://www.google.com/maps?q=-22.33180+-48.75870"
+        "Local: https://www.google.com/maps?q=-22.33180+-48.75870 "
         "Foram 119 ocorrências do dia 19/10/2024 a 22/10/2024. "
-        "A variavel tabela_velocidade contem o link com as coordenadas exata para apontarmos o local exato da ocorrência."
+        "A variável tabela_velocidade contém o link com as coordenadas exatas para apontarmos o local exato da ocorrência."
         "A tabela disponibilizada acima é sobre as ocorrências de velocidade. "
         "A variável tabela_velocidade contém dados de infrações de velocidade. "
         "A Logística Florestal da Bracell inovando e utilizando IA para ajudar nas análises de infrações de velocidade!! "
@@ -2017,13 +2018,9 @@ def formatar_resposta(resposta):
 def main():
     st.title("Painel de Infrações de Velocidade - Bracell")
     
-    # Exibe uma saudação inicial
-    st.write("Bem-vindo! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
-
-    # Exibir a tabela de infrações
-    st.subheader("Tabela de Infrações de Velocidade")
-    tabela_infracao = formatar_tabela(tabela_velocidade)
-    st.text(tabela_infracao)
+    # Exibe uma saudação dinâmica com base na hora do dia
+    saudacao = gerar_saudacao()
+    st.write(f"{saudacao}! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
 
     # Entrada de texto para a pergunta do usuário
     pergunta = st.text_input("Digite sua pergunta sobre as infrações de velocidade:")
