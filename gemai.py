@@ -1963,8 +1963,9 @@ def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
 
     # Contexto que será passado em todas as interações
     contexto = (
+        "Local": "https://www.google.com/maps?q=-22.33180+-48.75870"
         "Foram 119 ocorrências do dia 19/10/2024 a 22/10/2024. "
-        "A variavel Local contem o link com as coordenadas exata para apontarmos o local exato da ocorrência."
+        "A variavel tabela_velocidade contem o link com as coordenadas exata para apontarmos o local exato da ocorrência."
         "A tabela disponibilizada acima é sobre as ocorrências de velocidade. "
         "A variável tabela_velocidade contém dados de infrações de velocidade. "
         "A Logística Florestal da Bracell inovando e utilizando IA para ajudar nas análises de infrações de velocidade!! "
