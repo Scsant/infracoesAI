@@ -2017,25 +2017,7 @@ def main():
     st.write(f"{saudacao}! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
 
     # Tabela de dados de exemplo (você pode substituí-la pelos dados reais)
-    tabela_velocidade = [
-        {
-            "Data": "20/10/2024",
-            "Hora": "12:27:11",
-            "Filial": "Plácidos",
-            "Motorista": "Denilson Lemes",
-            "Veículo": "001997 - FYM6H86",
-            "Hodômetro (km)": 3528500,
-            "Duração (hh:mm:ss)": "00:00:10",
-            "Velocidade (Km/h)": 46,
-            "Limite (Km/h)": 30,
-            "Cerca Embarcada": "BRC_CURVA PERIGOSA",
-            "Ação": "Valido",
-            "Data da Ação": "20/10/2024 12:46:32",
-            "Usuário da Ação": "Matheus Vinicius Morgado",
-            "Local": "https://www.google.com/maps?q=-22.98640+-48.55260"
-        }
-        # Adicione mais dados se necessário
-    ]
+
 
     # Entrada de texto para a pergunta do usuário
     pergunta = st.text_input("Digite sua pergunta sobre as infrações de velocidade:")
