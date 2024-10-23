@@ -1960,12 +1960,19 @@ def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
         'Content-Type': 'application/json',
     }
 
+
     # Contexto que será passado em todas as interações
     contexto = (
+        "Local: https://www.google.com/maps?q=-22.33180+-48.75870 "
         "Foram 119 ocorrências do dia 19/10/2024 a 22/10/2024. "
         "A variável tabela_velocidade contém o link com as coordenadas exatas para apontarmos o local exato da ocorrência."
         "A tabela disponibilizada acima é sobre as ocorrências de velocidade. "
+        "A variável tabela_velocidade contém dados de infrações de velocidade. "
         "A Logística Florestal da Bracell inovando e utilizando IA para ajudar nas análises de infrações de velocidade!! "
+        "Este painel da logística foi criado por Sócrates, com a ajuda de Alex na compilação dos dados e Jader nas ideias para melhorar a interface. "
+        "Se precisar, os gestores podem baixar dados em formato Excel para facilitar o trabalho. "
+        "Responda todas as perguntas considerando o contexto das infrações de velocidade. "
+        "Tecnologias utilizadas: HTML, CSS, JS, Linguagem R e PYTHON."
     )
     
     # Formatar a tabela e incluir no contexto
