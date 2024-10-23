@@ -1928,8 +1928,112 @@ tabela_velocidade = [
         "Local": "https://www.google.com/maps?q=-22.33180+-48.75870"
     }
         # Adicione mais registros se necessário...
-    ]
+    
+# Função para formatar a tabela de infrações
+def formatar_tabela(tabela_velocidade):
+    tabela_infracao = ""
+    for registro in tabela_velocidade:
+        tabela_infracao += (
+            f"Data: {registro['Data']}\n"
+            f"Hora: {registro['Hora']}\n"
+            f"Filial: {registro['Filial']}\n"
+            f"Motorista: {registro['Motorista']}\n"
+            f"Veículo: {registro['Veículo']}\n"
+            f"Hodômetro (km): {registro['Hodômetro (km)']}\n"
+            f"Duração: {registro['Duração (hh:mm:ss)']}\n"
+            f"Velocidade: {registro['Velocidade (Km/h)']} Km/h\n"
+            f"Limite: {registro['Limite (Km/h)']} Km/h\n"
+            f"Cerca Embarcada: {registro['Cerca Embarcada']}\n"
+            f"Ação: {registro['Ação']}\n"
+            f"Data da Ação: {registro['Data da Ação']}\n"
+            f"Usuário da Ação: {registro['Usuário da Ação']}\n"
+            f"Local: {registro['Local']}\n\n"
+        )
+    
+    return tabela_infracao
 
+# Função para fazer a requisição à API do Gemini
+def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
+    url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
+    
+    headers = {
+        'Content-Type': 'application/json',
+    }
+
+    # Contexto que será passado em todas as interações
+    contexto = (
+        "Foram 119 ocorrências do dia 19/10/2024 a 22/10/2024. "
+        "A variável tabela_velocidade contém o link com as coordenadas exatas para apontarmos o local exato da ocorrência."
+        "A tabela disponibilizada acima é sobre as ocorrências de velocidade. "
+        "A Logística Florestal da Bracell inovando e utilizando IA para ajudar nas análises de infrações de velocidade!! "
+    )
+    
+    # Formatar a tabela e incluir no contexto
+    tabela_infracao = formatar_tabela(tabela_velocidade)
+    
+    # Combina o contexto, a tabela e a pergunta do usuário
+    pergunta_com_contexto = f"{contexto}\n\nTabela de Dados:\n{tabela_infracao}\n\nPergunta: {pergunta}"
+    
+    # Corpo da requisição com a pergunta, contexto e a tabela
+    data = {
+        "contents": [
+            {
+                "parts": [
+                    {"text": pergunta_com_contexto}
+                ]
+            }
+        ]
+    }
+    
+    params = {
+        'key': api_key  # Chave de autenticação da API
+    }
+    
+    # Fazendo a requisição POST
+    response = requests.post(url, headers=headers, json=data, params=params)
+    
+    if response.status_code == 200:
+        return response.json()  # Retorna a resposta em JSON
+    else:
+        return {"erro": "Falha ao se comunicar com a API.", "status_code": response.status_code}
+
+# Função para extrair e formatar a resposta da API de forma amigável
+def formatar_resposta(resposta):
+    try:
+        # Extraindo o texto da resposta gerada
+        texto_resposta = resposta["candidates"][0]["content"]["parts"][0]["text"]
+        return texto_resposta
+    except (KeyError, IndexError):
+        return "Não foi possível processar a resposta da API."
+
+# Função principal para interface do Streamlit
+def main():
+    st.title("Painel de Infrações de Velocidade - Bracell")
+    
+    # Exibe uma saudação dinâmica com base na hora do dia
+    saudacao = gerar_saudacao()
+    st.write(f"{saudacao}! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
+
+    # Entrada de texto para a pergunta do usuário
+    pergunta = st.text_input("Digite sua pergunta sobre as infrações de velocidade:")
+
+    # Botão para consultar a API
+    if st.button("Consultar Inteligência Artificial"):
+        if pergunta and api_key:
+            resposta = consultar_gemini_api(pergunta, api_key, tabela_velocidade)
+            
+            # Exibindo a resposta da API
+            if 'erro' in resposta:
+                st.error(f"Erro: {resposta['erro']} (Status code: {resposta['status_code']})")
+            else:
+                resposta_formatada = formatar_resposta(resposta)
+                st.write("Resposta da IA:")
+                st.write(resposta_formatada)
+        else:
+            st.warning("Por favor, insira a pergunta e a API Key.")
+
+if __name__ == '__main__':
+    main()
 # Função para fazer a requisição à API do Gemini
 def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
     url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
