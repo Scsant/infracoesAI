@@ -2017,7 +2017,7 @@ def main():
     st.write(f"{saudacao}! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
 
     # Tabela de dados de exemplo (você pode substituí-la pelos dados reais)
-
+   ]
 
     # Entrada de texto para a pergunta do usuário
     pergunta = st.text_input("Digite sua pergunta sobre as infrações de velocidade:")
