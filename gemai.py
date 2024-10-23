@@ -21,8 +21,8 @@ def gerar_saudacao():
         return "Olá"
 
 # Função para formatar a tabela de dados em formato de texto
-def formatar_tabela():
-    tabela_velocidade = [
+
+tabela_velocidade = [
     {
         "Data": "20/10/2024",
         "Hora": "12:27:11",
@@ -1930,30 +1930,6 @@ def formatar_tabela():
         # Adicione mais registros se necessário...
     ]
 
-
-
-
-    tabela_infracao = ""
-    for registro in tabela_velocidade:
-        tabela_infracao += (
-            f"Data: {registro['Data']}\n"
-            f"Hora: {registro['Hora']}\n"
-            f"Filial: {registro['Filial']}\n"
-            f"Motorista: {registro['Motorista']}\n"
-            f"Veículo: {registro['Veículo']}\n"
-            f"Hodômetro (km): {registro['Hodômetro (km)']}\n"
-            f"Duração: {registro['Duração (hh:mm:ss)']}\n"
-            f"Velocidade: {registro['Velocidade (Km/h)']} Km/h\n"
-            f"Limite: {registro['Limite (Km/h)']} Km/h\n"
-            f"Cerca Embarcada: {registro['Cerca Embarcada']}\n"
-            f"Ação: {registro['Ação']}\n"
-            f"Data da Ação: {registro['Data da Ação']}\n"
-            f"Usuário da Ação: {registro['Usuário da Ação']}\n"
-            f"Local: {registro['Local']}\n\n"
-        )
-    
-    return tabela_infracao
-
 # Função para fazer a requisição à API do Gemini
 def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
     url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
@@ -2036,3 +2012,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
