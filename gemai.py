@@ -1933,8 +1933,6 @@ def formatar_tabela():
 
 
 
-# Função para formatar a tabela de infrações
-def formatar_tabela(tabela_velocidade):
     tabela_infracao = ""
     for registro in tabela_velocidade:
         tabela_infracao += (
@@ -1953,6 +1951,7 @@ def formatar_tabela(tabela_velocidade):
             f"Usuário da Ação: {registro['Usuário da Ação']}\n"
             f"Local: {registro['Local']}\n\n"
         )
+    
     return tabela_infracao
 
 # Função para fazer a requisição à API do Gemini
