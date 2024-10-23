@@ -1932,6 +1932,7 @@ def formatar_tabela():
 
 
 
+
 # Função para formatar a tabela de infrações
 def formatar_tabela(tabela_velocidade):
     tabela_infracao = ""
@@ -2015,9 +2016,6 @@ def main():
     # Exibe uma saudação dinâmica com base na hora do dia
     saudacao = gerar_saudacao()
     st.write(f"{saudacao}! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
-
-        # Adicione mais dados se necessário
-    ]
 
     # Entrada de texto para a pergunta do usuário
     pergunta = st.text_input("Digite sua pergunta sobre as infrações de velocidade:")
