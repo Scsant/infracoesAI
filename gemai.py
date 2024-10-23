@@ -1949,10 +1949,10 @@ def formatar_tabela(tabela_velocidade):
             f"Cerca Embarcada: {registro['Cerca Embarcada']}\n"
             f"Ação: {registro['Ação']}\n"
             f"Data da Ação: {registro['Data da Ação']}\n"
-            f"Usuário da Ação: {registro['Usuário da Ação']}\n\n"
+            f"Usuário da Ação: {registro['Usuário da Ação']}\n"
+            f"Local: {registro['Local']}\n\n"
         )
     return tabela_infracao
-
 
 # Função para fazer a requisição à API do Gemini
 def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
@@ -1964,16 +1964,10 @@ def consultar_gemini_api(pergunta, api_key, tabela_velocidade):
 
     # Contexto que será passado em todas as interações
     contexto = (
-        "Local: https://www.google.com/maps?q=-22.33180+-48.75870 "
         "Foram 119 ocorrências do dia 19/10/2024 a 22/10/2024. "
         "A variável tabela_velocidade contém o link com as coordenadas exatas para apontarmos o local exato da ocorrência."
         "A tabela disponibilizada acima é sobre as ocorrências de velocidade. "
-        "A variável tabela_velocidade contém dados de infrações de velocidade. "
         "A Logística Florestal da Bracell inovando e utilizando IA para ajudar nas análises de infrações de velocidade!! "
-        "Este painel da logística foi criado por Sócrates, com a ajuda de Alex na compilação dos dados e Jader nas ideias para melhorar a interface. "
-        "Se precisar, os gestores podem baixar dados em formato Excel para facilitar o trabalho. "
-        "Responda todas as perguntas considerando o contexto das infrações de velocidade. "
-        "Tecnologias utilizadas: HTML, CSS, JS, Linguagem R e PYTHON."
     )
     
     # Formatar a tabela e incluir no contexto
@@ -2021,6 +2015,27 @@ def main():
     # Exibe uma saudação dinâmica com base na hora do dia
     saudacao = gerar_saudacao()
     st.write(f"{saudacao}! Este painel foi desenvolvido para analisar infrações de velocidade usando IA.")
+
+    # Tabela de dados de exemplo (você pode substituí-la pelos dados reais)
+    tabela_velocidade = [
+        {
+            "Data": "20/10/2024",
+            "Hora": "12:27:11",
+            "Filial": "Plácidos",
+            "Motorista": "Denilson Lemes",
+            "Veículo": "001997 - FYM6H86",
+            "Hodômetro (km)": 3528500,
+            "Duração (hh:mm:ss)": "00:00:10",
+            "Velocidade (Km/h)": 46,
+            "Limite (Km/h)": 30,
+            "Cerca Embarcada": "BRC_CURVA PERIGOSA",
+            "Ação": "Valido",
+            "Data da Ação": "20/10/2024 12:46:32",
+            "Usuário da Ação": "Matheus Vinicius Morgado",
+            "Local": "https://www.google.com/maps?q=-22.98640+-48.55260"
+        }
+        # Adicione mais dados se necessário
+    ]
 
     # Entrada de texto para a pergunta do usuário
     pergunta = st.text_input("Digite sua pergunta sobre as infrações de velocidade:")
